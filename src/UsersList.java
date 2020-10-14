@@ -1,6 +1,14 @@
 interface UsersList {
-    void addUser(String name);
-    User getUserById(int id);
-    User getUserByInd(int index);
+    void addUserByName(String name);
+
+    void addUser(User user);
+    void addUsers(User... user);
+    User getUserById(int id) throws UserNotFoundException;
+    User getUserByInd(int index) throws UserNotFoundException;
+
+    User[] getUsers(int... id);
+
     int getTotal();
+
+    void addUsersByName(String... joe);
 }

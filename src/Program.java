@@ -1,31 +1,16 @@
 import java.util.UUID;
 
 public class Program {
-    public static void showTransaction(Transaction tmp) {
-        System.out.print(tmp.getSender());
-        System.out.print(" -> ");
-        System.out.print(tmp.getRecipient());
 
-        if (tmp.getCategory() == Type.INCOME) {
-            System.out.print(", +");
-        } else {
-            System.out.print(", -");
-        }
-        System.out.print(tmp.getAmount());
-        System.out.print(", ");
-        System.out.print(tmp.getCategory());
-        System.out.print(", ");
-        System.out.println(tmp.getUuid());
+    public static void showTransaction(Transaction tmp) {
+        System.out.println(tmp.toString());
     }
 
     public static Transaction sendMoney(User sndr, User rcpt, int amnt) {
-        if ((sndr.getBalance() - amnt) < 0) {
-            return null;
-        }
-        Transaction inTrans = new Transaction(rcpt, sndr, Type.INCOME, amnt);
-        showTransaction(inTrans);
-        Transaction outTrans = new Transaction(sndr, rcpt, Type.OUTCOME, amnt);
-        showTransaction(outTrans);
+        Transaction inTrans = Transaction.newTransaction(rcpt, sndr, Type.INCOME, amnt);
+        System.out.println(inTrans);
+        Transaction outTrans = Transaction.newTransaction(sndr, rcpt, Type.OUTCOME, amnt);
+        System.out.println(outTrans);
         return inTrans;
     }
 
@@ -33,18 +18,20 @@ public class Program {
 
         UsersArrayList usersArray = new UsersArrayList();
 
-        usersArray.addUser("Joe");
-        usersArray.addUser("Bob");
-        usersArray.addUser("Foo");
-        usersArray.addUser("A");
-        usersArray.addUser("Joe2");
-        usersArray.addUser("Bob2");
-        usersArray.addUser("Foo2");
-        usersArray.addUser("A2");
+        usersArray.addUsersByName("Joe", "Bob", "Foo", "A", "Joe2", "Bob2", "Foo2", "A2");
 
         System.out.println(usersArray.getTotal());
-        System.out.println(usersArray.getUserById(3).getName());
-        System.out.println(usersArray.getUserByInd(6).getName());
+        try {
+            System.out.println(usersArray.getUserById(3).getName());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            System.out.println(usersArray.getUserByInd(6).getName());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
 
 //        User mike = new User("Mike", 9000);
